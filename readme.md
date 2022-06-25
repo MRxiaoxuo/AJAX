@@ -84,6 +84,8 @@ POST方法设置请求头 :  content-type
         xhr.open('GET','http://127.0.0.1:8080/pathname?query'+Date.now())
 
 ------取消请求的API    xhr.abort()  实质是关闭请求 来得及阻挡发送就阻挡   来不及就关闭接收数据
+
+------避免多次请求的处理
             const btn = document.getElementById('btn);
             let xhr;//提亲声明变量
             let falg;//给xhr的状态追踪标签
@@ -111,8 +113,6 @@ POST方法设置请求头 :  content-type
                 xhr.send();
                 flag:true;//刚发出去还没回来的状态为true 表示可以取消
             }
-
-------避免多次请求的处理 (xhr.abort())
        
 ------jQuery封装的ajax请求的语法
             <!-- 引入jQuery -->
