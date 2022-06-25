@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>取消请求的处理</title>
+    <link rel="stylesheet" href="./ajax.css">
+</head>
+
+<body>
+    <h3>取消请求的处理</h3>
+    <p>原生ajax请求的写法</p>
+    <p>[------]</p>
+    <button id="btn01">点击请求</button> <button id="btn02">取消请求</button><br><br>
+    <div class="content"></div>
+</body>
+
+</html>
+<script>
+    const btn01 = document.getElementById('btn01');
+    const btn02 = document.getElementById('btn02');
+    const content = document.getElementsByClassName('content')[0];
+    let xhr ;
+    // 点击请求
+    btn01.onclick = function(){
+       xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function(){
+            if(xhr.readyState===4 && (xhr.status>=200 && xhr.status<300)){
+                const {name,age,gender,songs} = xhr.response;
+                content.innerHTML = (`
+                                        <ul>
+                                            <li><a href='javascript:;'>姓名:${name}</a></li>
+                                            <li>年龄:${age}</li>
+                                            <li>性别:${gender}</li>
+                                            <li>歌曲:${songs}</li>
+                                        </ul>
+                                    `)
+            }
+        }
+
+        
+
+        //xhr.setRequestHeader();//设置请求的格式 一般是POST方法为请求体设置的
+
+        xhr.open('GET','http://127.0.0.1:8080/test_cancel');//设置请求的method  url
+
+        // xhr.timeout = 2000;
+
+        xhr.responseType = 'json';//设置响应回来的数据格式
+       
+
+        xhr.send();//发送请求 或者携带请求体参数发送请求
+        
+        
+    }
+
+    // 点击取消请求
+    btn02.onclick = ()=>{
+        xhr.abort();
+    }
+</script>

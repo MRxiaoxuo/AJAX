@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jsonp完整解决跨域问题</title>
+    <link rel="stylesheet" href="./ajax.css">
+</head>
+
+<body>
+    <h3>jsonp完整解决跨域问题</h3>
+    <p>[---完整解决----]</p>
+    <button id="btn01">点击</button><br><br>
+</body>
+
+</html>
+
+<script>
+
+    const btn01 = document.getElementById('btn01');
+    // 准备一个函数用来获取数据的
+
+    // 点击按钮调用服务端的代码(在前端创建一个script利用src是get方法获取后端代码)
+    btn01.onclick = () => {
+        let scriptNode = document.createElement('script');
+        // 在建立get请求的时候指定回调函数的名字 callback
+        scriptNode.src = 'http://127.0.0.1:8080/test_jsonp?callback=fn';
+
+        // 将script标签添加到body中
+        document.body.appendChild(scriptNode);
+
+        // 在全局中创建回调函数代码用来接收数据
+        window.fn = (data) => {
+            console.log(data[0]);
+            console.log(data[1]);
+        }
+
+        // 移除添加的scropt标签
+        document.body.removeChild(scriptNode);
+    }
+</script>

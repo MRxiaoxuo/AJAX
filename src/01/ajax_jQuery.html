@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>使用jQuery封装的ajax请求数据</title>
+    <link rel="stylesheet" href="./ajax.css">
+</head>
+
+<body>
+    <h3>使用jQuery封装的ajax请求数据</h3>
+    <p>jQuery封装的ajax请求的写法</p>
+    <p>[------]</p>
+    <button id="btn01">点击GET请求</button> <button id="btn02">点击POST请求</button><br><br>
+    <div class="content"></div>
+</body>
+
+</html>
+<script src="./js/jquery.min.js"></script>
+<script>
+    const btn01 = $('#btn01');
+    const btn02 = $('#btn02');
+    const content = $('.content');
+    // 点击请求
+    
+
+    // ----GET
+
+
+            // 【--完整版--】
+            /* btn01.click(() => {
+                $.ajax({
+                    url: 'http://127.0.0.1:8080/test_jquery',//请求的url
+                    method: 'GET',//请求的方法
+                    data: { name: 'wang' },//请求携带的参数
+                    dataType: 'json',//解析接受的json数据
+                    timeout:2000,//指定允许的时间
+                    success: (res,responseText,a) => {//请求成功的回调
+                        console.log(res,responseText,a);
+                        // console.log(res);
+                        // content.html(`
+                        //         <ul>
+                        //             <li><a href='javascript:;'>姓名:${res.name}</a></li>
+                        //             <li>年龄:${res.age}</li>
+                        //             <li>性别:${res.gender}</li>
+                        //             <li>歌曲:${res.songs}</li>
+                        //          </ul>   
+                        // `)
+                        content.append(`
+                                        <ul>
+                                            <li><a href='javascript:;'>姓名:${res.name}</a></li>
+                                            <li>年龄:${res.age}</li>
+                                            <li>性别:${res.gender}</li>
+                                            <li>歌曲:${res.songs}</li>
+                                        </ul>
+                                    `)
+                    },
+                    error: (xhr) => {//请求失败的回调
+                        console.log('请求出错了',xhr);
+                    }
+                })  */
+
+                        // -----【精简版】query参数
+                        /* $.get('http://127.0.0.1:8080/test_jquery',{name:'wang'},(data)=>{
+                            console.log(data);
+                        },'json') */
+
+                        // ----精简版params参数
+                        //   $.get('http://127.0.0.1:8080/test_jquery/wang',{},(data)=>{
+                        //         console.log(data);
+                        //     },'json') 
+            // })
+
+
+    // ---POST
+
+            // 【完整版】
+            /* btn02.click(()=>{
+                    $.ajax({
+                        url:'http://127.0.0.1:8080/test_post_jquery',
+                        method:'POST',
+                        data:{name:'wang',age:39,gender:'女'},
+                        dataType:'json',
+                        timeout:2000,
+                        success:(res,responseText,xhr)=>{
+                            console.log(res,xhr);
+                            console.log(responseText);
+                            const {name,age,gender,songs} = res;
+                            content.html(`
+                                            <ul>
+                                                <li><a href='javascript:;'>姓名:${name}</a></li>
+                                                <li>年龄:${age}</li>
+                                                <li>性别:${gender}</li>
+                                                <li>歌曲:${songs}</li>
+                                            </ul>  
+                                        `)  
+                        },
+                        error:(xhr)=>{
+                            console.log('出错了',xhr);
+                        }
+                    })
+                }) */
+            
+            // 【精简版】
+            btn02.click(()=>{
+                $.post('http://127.0.0.1:8080/test_post_jquery',{name:'wang',age:30,gender:'女'},(data,responseText,xhr)=>{
+                    console.log(data,responseText,xhr);
+                    const {name,age,gender,songs} = data;
+                    content.html(`
+                                    <ul>
+                                        <li><a href='javascript:;'>姓名:${name}</a></li>
+                                        <li>年龄:${age}</li>
+                                        <li>性别:${gender}</li>
+                                        <li>歌曲:${songs}</li>
+                                    </ul>
+
+                                 `)
+                },'json')
+            })
+
+</script>

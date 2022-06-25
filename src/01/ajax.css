@@ -1,0 +1,23 @@
+.content{
+    width: 200px;
+    height: 200px;
+    border: 5px solid rgb(224, 171, 57);
+    background-color: rgb(133, 133, 133);
+    box-shadow: 2px 2px 5px rgba(0, 0, 0,.5);
+}
+
+ul{
+    list-style: none;
+    color: rgb(255, 255, 255);
+    margin-left: 5px;
+    padding: 0;
+}
+li{
+    margin: 5px 0;
+}
+
+button{
+    /* background-color: coral; */
+    /* border: 2px solid rgb(224, 171, 57); */
+    color: coral;
+}
